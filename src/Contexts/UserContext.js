@@ -22,7 +22,7 @@ const UserContext = ({children}) => {
     }
 
     const signIn=(email,password)=>{
-        setLoading(true);
+        // setLoading(true);
         return signInWithEmailAndPassword(auth,email,password);
     }
     useEffect(()=>{

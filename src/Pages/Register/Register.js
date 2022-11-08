@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useContext } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/UserContext";
+import axios from "axios";
+import { async } from "@firebase/util";
 
 let email;
 let password;
@@ -13,68 +14,89 @@ let name;
 let photo;
 
 const Register = () => {
-  const { createUseremail, signingoogle, signingitpop,updateuserInfo } =
+  const { createUseremail, signingoogle, signingitpop, updateuserInfo } =
     useContext(AuthContext);
-    const navigate=useNavigate();
-    
+  const navigate = useNavigate();
+  photo = "url";
+
   const [password_error, setpassword_error] = useState("");
-  const [login_error,setLogin_error]=useState('');
+  const [login_error, setLogin_error] = useState("");
   const [success, setSuccess] = useState(false);
-  const [accepted,setAccepted]=useState(false);
+  const [accepted, setAccepted] = useState(false);
+
+  const [userInfo, setUserInfo] = useState({ file: [] });
+
+  const handleInputChange = (event) => {
+    setUserInfo({
+      ...userInfo,
+      file: event.target.files[0],
+    });
+  };
+  // const uploadImage=async()=>{
+  //   const formdata=new FormData();
+  //   formdata.append('avatar',userInfo.file);
+  //   // axios.post("http",formdata,{
+  //   //   headers:{"content-Type":"multipart/form-data"}
+  //   // })
+  //   // .then(res =>{
+  //   //   console.warn(res);
+
+  //   // })
+
+  // }
+  const uploadImage = () => {
+    console.log("work");
+  };
 
   const handleRegister = (event) => {
     event.preventDefault();
 
     setSuccess(false);
-
-    console.log("worked");
-    event.preventDefault();
     email = event.target.email.value;
     password = event.target.password.value;
-    confirm_password = event.target.passwordconfirm.value;
-    name=event.target.name.value;
-    photo=event.target.img.value;
+    confirm_password = event.target.confirmPassword.value;
+    name = event.target.name.value;
+    console.log(email, password, confirm_password, name);
+    // photo=event.target.img.value;
+    //Aasdf1!
 
     if (!/(?=.*[A-Z])/.test(password)) {
       setpassword_error("Please Provide at least one UpperCase letter");
-      toast.error({password_error});
-      
-      return;
+      toast.error({ password_error });
+      navigate("/register");
     }
     if (password.length < 6) {
       setpassword_error("Password length should be more than 6");
-      toast.error({password_error});
-      return;
+      toast.error({ password_error });
+      navigate("/register");
     }
     if (!/(?=.*[!@#$*])/.test(password)) {
       setpassword_error("SPEcial charecter missing");
-      toast.error({password_error});
-      return;
+      toast.error({ password_error });
+      navigate("/register");
     }
     if (confirm_password !== password) {
       setpassword_error("Password Doesnot match");
-      toast.error({password_error});
-      return;
+      toast.error({ password_error });
+      navigate("/register");
     }
     setpassword_error("");
 
     createUseremail(email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         console.log(user);
         console.log("working");
-        setLogin_error('');
+        setLogin_error("");
         setSuccess(true);
-        console.log("name",name);
-        console.log("url",photo);
-        handleupdateProfile(name,photo);
+        console.log("name", name);
+        console.log("url", photo);
+        handleupdateProfile(name, photo);
         event.target.reset();
-        toast.success('Successfully Registered and Loged in !')
-        navigate('/');
+        toast.success("Successfully Registered and Loged in !");
+        navigate("/");
 
         setSuccess(false);
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -82,83 +104,142 @@ const Register = () => {
         console.log("error", error);
         setLogin_error(error.message);
         setpassword_error(errorMessage);
-        toast.error({login_error});
+        toast.error({ login_error });
+        navigate("/register");
         // ..
       });
   };
 
-  const handleAccepted = event=>{
+  const handleAccepted = (event) => {
     setAccepted(event.target.checked);
-
-  }
-  const handleupdateProfile =(name,photourl)=>{
-    const profile={
-      displayName : name,
-      photoURL :photourl
-    }
-    console.log("find in",profile.displayName);
+    console.log(event.target.checked);
+  };
+  const handleupdateProfile = (name, photourl) => {
+    const profile = {
+      displayName: name,
+      photoURL: photourl,
+    };
+    console.log("find in", profile.displayName);
     updateuserInfo(profile)
-    .then(() => {
-      console.log("updated");
-    }).catch((error) => {
-      console.log("update error",error);
-    });
-
-  }
+      .then(() => {
+        console.log("updated");
+      })
+      .catch((error) => {
+        console.log("update error", error);
+      });
+  };
 
   return (
-    <div className="mx-auto w-50 border rounded p-3">
+    <div className="mx-auto w-50  rounded p-3 grid place-items-center ">
       <h1>Please Register</h1>
-      <Form onSubmit={handleRegister}>
-        <Form.Group className="mb-3" controlId="formBasicname">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" name="name" placeholder="Enter Name" />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicimage">
-          <Form.Label>Image URL</Form.Label>
-          <Form.Control
+      <form
+        onSubmit={handleRegister}
+        className="   p-5 text-left shadow-2xl border border-sky-500"
+      >
+        <div className="mb-6 m-auto">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Name
+          </label>
+          <input
             type="text"
-            name="img"
-            placeholder="Enter profile image url"
+            id="name"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Enter Your Name"
+            name="name"
           />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" name="email" placeholder="Enter email" />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="mb-6 m-auto">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Email address
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Enter Your Email"
+            required={true}
+            name="email"
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Password
+          </label>
+          <input
             type="password"
-            name="password"
+            id="password"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Password"
+            name="password"
+            required={true}
           />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPasswordConfirm">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="mb-6">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Confirm Password
+          </label>
+          <input
             type="password"
-            name="passwordconfirm"
-            placeholder="Enter the password agian"
+            id="confirmPassword"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder=" confirm Password"
+            name="confirmPassword"
+            required={true}
           />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check onClick={handleAccepted} type="checkbox" label="Accept Terms and Conditions" />
-        </Form.Group>
-     
+        </div>
+        <div className="formdesign">
+          <div className="form-row">
+            <label>Select Profile Picture</label>
+            <input
+              type="file"
+              className="form-control"
+              name="upload_file"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-row">
+            <button
+              onClick={uploadImage}
+              className="btn bg-blue-700 p-1 mb-2 mt-2 rounded-xl"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
+        <div className="flex items-center mb-4">
+          <input
+            onClick={handleAccepted}
+            id="default-checkbox"
+            type="checkbox"
+            value=""
+            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Accept Terms and Conditions
+          </label>
+        </div>
         {success && <p> User created Successfully </p>}
-        <Button variant="primary" type="submit" disabled={!accepted}>
-          Register
-        </Button>
-      </Form>
+        <div className="text-center">
+          {accepted ? (
+            <button
+              type="submit"
+              className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-75 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Register
+            </button>
+          ) : (
+            <button
+              type="button"
+              className=" text-white bg-blue-300 rounded-lg focus:outline-none font-medium rounded-lg text-sm w-75 sm:w-auto px-5 py-2.5"
+              disabled
+            >
+              Register
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
-
 };
 
 export default Register;
