@@ -17,7 +17,7 @@ let photo;
 const AddService = () => {
     const [accepted, setAccepted] = useState(false);
 
-    const[service,setService]=useState({});
+    const[service,setService]=useState({rating:"0"});
 
 
     const [userInfo,setuserInfo]=useState({
@@ -54,11 +54,13 @@ const AddService = () => {
         name = event.target.name.value;
         photo=event.target.photo.value;
         console.log(charge,  service_description, photo, name);
+        let current = new Date();
         const newService={...service};
         newService["name"]=name;
         newService["charge"]=charge;
         newService["description"]=service_description;
         newService["photo"]=photo;
+        newService["timedate"]=current.toLocaleString();
         setService(newService);
 
         fetch("http://localhost:5000/services",{

@@ -12,10 +12,12 @@ import Services from "../../Pages/Services/Services";
 export const routes =createBrowserRouter([
     {
         path:"/",
+        
         element:<Main></Main>,
         children:[
             {
                 path:"/",
+                loader:()=>fetch("http://localhost:5000/home/services"),
                 element:<Home></Home>
             },
             {
