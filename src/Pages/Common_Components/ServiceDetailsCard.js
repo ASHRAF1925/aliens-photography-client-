@@ -6,6 +6,7 @@ import  {enshort}  from '../../Utilities/Function_short';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import { useNavigate } from 'react-router-dom';
+import './ServiceDetailsCard.css'
 
 
 const ServiceDetailsCard = ({service}) => {
