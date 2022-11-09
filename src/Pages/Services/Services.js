@@ -6,6 +6,7 @@ import ServiceDetailsCard from '../Common_Components/ServiceDetailsCard';
 
 const Services = () => {
     const services=useLoaderData();
+    console.log(services)
 
     return (
         <div className='container mx-auto'>

@@ -47,15 +47,12 @@ export const routes =createBrowserRouter([
             },
             {
                 path:'/addServices',
-                element:<AddService></AddService>
+                element:<PrivateRoute><AddService></AddService></PrivateRoute>
             },
             {
                 path:'/myreviews/:id',
                 element:<PrivateRoute><MyReview></MyReview></PrivateRoute>,
-                loader: ({params}) => {
-                    console.log(params.id)
-                          return fetch(`https://house-of-cse-server.vercel.app/myreiews/${params.id}`);
-                        },
+             
             }
         ]
     }
