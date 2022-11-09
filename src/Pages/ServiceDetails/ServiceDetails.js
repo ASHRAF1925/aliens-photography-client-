@@ -10,6 +10,10 @@ import { AuthContext } from "../../Contexts/UserContext";
 
 import "./ServiceDetails.css";
 import { Button } from "flowbite-react";
+import { Toaster,toast } from "react-hot-toast";
+import ReviewCard from "../Common_Components/Review_cards/ReviewCard";
+import ReviewItems from "../Common_Components/ReviewsItem/ReviewsItem";
+
 
 const ServiceDetails = () => {
   const Singleservice = useLoaderData();
@@ -70,6 +74,10 @@ const ServiceDetails = () => {
     .then(data=>{
         console.log(data)
         setupdate(true);
+        
+        toast.success("Review Added");
+       
+  
 
     })
     event.target.reset();
@@ -201,9 +209,8 @@ const ServiceDetails = () => {
       </div>
       {reviwavialable ? (
         // {/* if review found start */}
-        <div>
-          <h1>{reviews.length}</h1>
-        </div>
+        <div className="my-20 mx-auto w-3/4"><ReviewItems reviews={{reviews}}></ReviewItems> </div>
+  
       ) : (
         // {/* if review found end */}
         <div className="bg-red-600 text-center text-5xl font-bold text-white p-10">
@@ -256,6 +263,7 @@ const ServiceDetails = () => {
                 <h1 className="ml-10  text-3xl font-bold ">Add Comment</h1>
                 <div className="mb-6 m-auto">
                   <textarea
+                  required={true}
                     onChange={handleCommentChange}
                     name="service_description"
                     id="message"
@@ -304,6 +312,10 @@ const ServiceDetails = () => {
       </div>
 
       {/* review giving section end */}
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
     </div>
   );
 };

@@ -5,12 +5,14 @@ import logo from '../../../../Assets/logo.jpg'
 import {  AuthContext } from "../../../../Contexts/UserContext";
 import toast from 'react-hot-toast'
 import { Link } from "react-router-dom";
+import './Navbar.css'
 const NavigationBar = () => {
     const activelink='text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600 Text-gradient ';
-    const normallink=''
+    const normallink='text-xl'
     
 
     const { user, logout } = useContext(AuthContext);
+
 
 
     const handlelogout = () => {
@@ -26,15 +28,16 @@ const NavigationBar = () => {
     };
     
   return (
-    <div>
-      <Navbar className="bg-blue-500 mx-auto " rounded={true}>
+  <div className="bg-blue-900 bg-color mx-auto">
+      <div className="bg-gradient-to-r from-cyan-500 to-blue-500 border-2 rounded-xl border-sky-500 p-5">
+      <Navbar  fluid={false} className="  " rounded={true}>
         <Navbar.Brand href="/">
           <img
             src={logo}
             className=" h-20 "
             alt=""
           />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
             Alien's Photography
           </span>
         </Navbar.Brand>
@@ -67,7 +70,8 @@ const NavigationBar = () => {
               </div> 
               ) : (
                 <Link to="/login" className="flex md:order-2">
-                  <button className="btn btn-primary">Login</button>
+              
+                  <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Login</button>
                 </Link>
               )}
 
@@ -78,6 +82,7 @@ const NavigationBar = () => {
          <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/services'>Services</NavLink>
          <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/blogs'>Blogs</NavLink>
          {user?.uid && (
+          // navigate(`/services/${service._id}`
             
                   <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/addServices'>Add Services</NavLink>
                
@@ -87,14 +92,15 @@ const NavigationBar = () => {
 {user?.uid && (
             
            
-            <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/myreviews'>My Reviews</NavLink>
+            <NavLink className={({isActive})=>isActive ? activelink:normallink} to={`/myreviews/${user.uid}`}>My Reviews</NavLink>
      
         )}
         {user?.uid && (
             
            
             <NavLink>
-            <button onClick={handlelogout}>Sign Out</button>
+           
+            <button onClick={handlelogout} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sign Out</button>
           </NavLink>
      
         )}
@@ -105,6 +111,8 @@ const NavigationBar = () => {
         </Navbar.Collapse>
       </Navbar>
     </div>
+
+  </div>
   );
 };
 

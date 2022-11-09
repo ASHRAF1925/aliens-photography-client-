@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { TextInput, Label, Checkbox, Button } from "flowbite-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { json, Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from '../../Contexts/UserContext';
 import { FcGoogle } from "react-icons/fc";
@@ -31,6 +31,30 @@ const Login = () => {
       
       const user = result.user;
       console.log("from google",user);
+      const currentUser={
+        email:user.email
+      }
+
+
+      // //get jwt Token
+      // fetch('http://localhost:5000/jwt',{
+      //   method:"POST",
+      //   headers:{
+      //     'content-type':'application/json'
+      //   },
+      //   body:JSON.stringify(currentUser)
+      // }).then(res=>res,json())
+      // .then(data=>{
+      //   console.log("from here")
+      //   console.log(data)
+      // })
+
+
+
+
+
+
+
       toast.success('Successfully log IN!')
       setError('');
       navigate(from,{replace: true});

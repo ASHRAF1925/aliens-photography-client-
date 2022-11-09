@@ -5,6 +5,7 @@ import { routes } from './Routes/PublicRoutes/Routes';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { Toaster } from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
   position="top-center"
   reverseOrder={false}
 />
+
 
     </div>
   );

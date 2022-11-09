@@ -8,6 +8,7 @@ import MyReview from "../../Pages/MyReview/MyReview";
 import Register from "../../Pages/Register/Register";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import Services from "../../Pages/Services/Services";
+import PrivateRoute from "../PrivareRoute/PrivateRoute";
 
 
 
@@ -49,8 +50,12 @@ export const routes =createBrowserRouter([
                 element:<AddService></AddService>
             },
             {
-                path:'/myreviews',
-                element:<MyReview></MyReview>
+                path:'/myreviews/:id',
+                element:<PrivateRoute><MyReview></MyReview></PrivateRoute>,
+                loader: ({params}) => {
+                    console.log(params.id)
+                          return fetch(`https://house-of-cse-server.vercel.app/myreiews/${params.id}`);
+                        },
             }
         ]
     }
