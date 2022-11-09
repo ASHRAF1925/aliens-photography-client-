@@ -6,7 +6,7 @@ import {  AuthContext } from "../../../../Contexts/UserContext";
 import toast from 'react-hot-toast'
 import { Link } from "react-router-dom";
 const NavigationBar = () => {
-    const activelink='bg-blue-100 text-black';
+    const activelink='text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600 Text-gradient';
     const normallink=''
     
 
@@ -77,10 +77,31 @@ const NavigationBar = () => {
          <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/'>Home</NavLink>
          <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/services'>Services</NavLink>
          <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/blogs'>Blogs</NavLink>
-         <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/addServices'>Add Services</NavLink>
-         <NavLink>
-                  <button onClick={handlelogout}>Sign Out</button>
-                </NavLink>
+         {user?.uid && (
+            
+                  <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/addServices'>Add Services</NavLink>
+               
+           
+              )}
+
+{user?.uid && (
+            
+           
+            <NavLink className={({isActive})=>isActive ? activelink:normallink} to='/myreviews'>My Reviews</NavLink>
+     
+        )}
+        {user?.uid && (
+            
+           
+            <NavLink>
+            <button onClick={handlelogout}>Sign Out</button>
+          </NavLink>
+     
+        )}
+              
+              
+      
+         
         </Navbar.Collapse>
       </Navbar>
     </div>
