@@ -6,7 +6,7 @@ import {  AuthContext } from "../../../../Contexts/UserContext";
 import toast from 'react-hot-toast'
 import { Link } from "react-router-dom";
 const NavigationBar = () => {
-    const activelink='text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600 Text-gradient';
+    const activelink='text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600 Text-gradient ';
     const normallink=''
     
 
