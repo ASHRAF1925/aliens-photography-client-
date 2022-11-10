@@ -39,7 +39,7 @@ const Login = () => {
 
         //get jwt token
 
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://aliens-photography-server-ashraf1925.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -63,11 +63,35 @@ const Login = () => {
       });
   };
 
+
+  // git login
   const handlegitsignin = () => {
     signingitpop()
       .then((result) => {
         const user = result.user;
         console.log("from git", user);
+        const fakemail=user.displayName+"@gmail.com"
+        const newcurrentUser = {
+          
+          email:fakemail ,
+        };
+        console.log(newcurrentUser);
+
+
+         //get jwt token
+
+         fetch("https://aliens-photography-server-ashraf1925.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newcurrentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+          });
         setError("");
         toast.success("Successfully log IN!");
         navigate(from, { replace: true });
@@ -86,6 +110,8 @@ const Login = () => {
     email = event.target.email.value;
     password = event.target.password.value;
 
+    //displayName
+
     signIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -97,7 +123,7 @@ const Login = () => {
 
         //get jwt token
 
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://aliens-photography-server-ashraf1925.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

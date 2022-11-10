@@ -33,7 +33,7 @@ export const routes =createBrowserRouter([
             {
                 path:'/services/:id',
                 element:<ServiceDetails></ServiceDetails>,
-                loader:({params})=>fetch(`http://localhost:5000/services/${params.id}`)
+                loader:({params})=>fetch(`https://aliens-photography-server-ashraf1925.vercel.app/services/${params.id}`)
             },
             {
                 path:'/blogs',
@@ -59,7 +59,7 @@ export const routes =createBrowserRouter([
             {
                 path:'/myreviews/update/:id',
                 element:<UpdateReview></UpdateReview>,
-                loader:({params})=>fetch(`http://localhost:5000/myreviews/update/${params.id}`)
+                loader:({params})=>fetch(`https://aliens-photography-server-ashraf1925.vercel.app/myreviews/update/${params.id}`)
             },
             {
                 path: "*",

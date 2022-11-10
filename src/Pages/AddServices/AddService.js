@@ -31,7 +31,7 @@ const AddService = () => {
     formdata.append("avatar", userInfo.file);
     axios
       .post(
-        "http://localhost:5000/imageupload",
+        "https://aliens-photography-server-ashraf1925.vercel.app/imageupload",
         formdata,
         {
           headers: { "content-type": "multipart/form-data" },
@@ -60,7 +60,7 @@ const AddService = () => {
     newService["timedate"] = current.toLocaleString();
     setService(newService);
 
-    fetch("http://localhost:5000/services", {
+    fetch("https://aliens-photography-server-ashraf1925.vercel.app/services", {
       method: "POST",
       headers: {
         "content-type": "application/json",

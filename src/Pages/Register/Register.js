@@ -103,7 +103,7 @@ const Register = () => {
 
         //get jwt token
 
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://aliens-photography-server-ashraf1925.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
