@@ -25,7 +25,7 @@ const ServiceDetails = () => {
 
 
   // useEffect(()=>{
-  //   fetch(`https://aliens-photography-server.vercel.app/services/${params.id}`
+  //   fetch(`http://localhost:5000/services/${params.id}`
   // },[])
 
 
@@ -67,7 +67,7 @@ const ServiceDetails = () => {
     
     console.log(newComment);
 
-      fetch("https://aliens-photography-server.vercel.app/services/reviews",{
+      fetch("http://localhost:5000/services/reviews",{
         method:'POST',
         headers:{
             'content-type':"application/json"
@@ -89,7 +89,7 @@ const ServiceDetails = () => {
   };
 
   useEffect(() => {
-    fetch(`https://aliens-photography-server.vercel.app/services/reviews/${Singleservice._id}`)
+    fetch(`http://localhost:5000/services/reviews/${Singleservice._id}`)
       .then((response) => response.json())
 
       .then((result) => {

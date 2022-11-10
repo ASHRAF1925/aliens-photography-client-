@@ -20,7 +20,7 @@ export default class ReviewItems extends Component {
 
     return (
       <div>
-      <div>{reviews.length}</div>
+     
         <Slider {...settings}>
          {
           reviews.map(review=><ReviewCard review={review} ></ReviewCard>)

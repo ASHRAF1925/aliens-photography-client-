@@ -18,7 +18,7 @@ const Register = () => {
   const { createUseremail, signingoogle, signingitpop, updateuserInfo } =
     useContext(AuthContext);
   const navigate = useNavigate();
-  photo = "url";
+
 
   const [password_error, setpassword_error] = useState("");
   const [login_error, setLogin_error] = useState("");
@@ -59,8 +59,9 @@ const Register = () => {
     password = event.target.password.value;
     confirm_password = event.target.confirmPassword.value;
     name = event.target.name.value;
-    console.log(email, password, confirm_password, name);
     photo=event.target.img.value;
+    console.log(email, password, confirm_password, name,photo);
+
     //Aasdf1!
 
     if (!/(?=.*[A-Z])/.test(password)) {
@@ -94,6 +95,31 @@ const Register = () => {
         setSuccess(true);
         console.log("name", name);
         console.log("url", photo);
+
+        const newcurrentUser = {
+          email: user.email,
+        };
+        console.log(newcurrentUser);
+
+        //get jwt token
+
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newcurrentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+          });
+
+
+
+
+
         handleupdateProfile(name, photo);
         event.target.reset();
         // toast.success("Successfully Registered and Loged in !");

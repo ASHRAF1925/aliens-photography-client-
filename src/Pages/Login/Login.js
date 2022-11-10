@@ -29,9 +29,28 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log("from google", user);
-        const currentUser = {
+       
+
+
+        const newcurrentUser = {
           email: user.email,
         };
+        console.log(newcurrentUser);
+
+        //get jwt token
+
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newcurrentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+          });
 
         toast.success("Successfully log IN!");
         setError("");
@@ -60,6 +79,7 @@ const Login = () => {
       });
   };
 
+  // function for handling form email password login
   const handleLogin = (event) => {
     event.preventDefault();
     console.log(event.target.email);
@@ -77,7 +97,7 @@ const Login = () => {
 
         //get jwt token
 
-        fetch("https://aliens-photography-server.vercel.app/jwt", {
+        fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

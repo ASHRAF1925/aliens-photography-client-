@@ -13,7 +13,7 @@ const Services = () => {
 
 
     useEffect(()=>{
-      fetch("https://aliens-photography-server.vercel.app/services")
+      fetch("http://localhost:5000/services")
       .then((res) => res.json())
     .then((data) => {setService(data)
       setLoading(false)
