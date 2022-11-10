@@ -21,7 +21,7 @@ const AddService = () => {
 
     useTitle("ADD Services")
 
-    const[service,setService]=useState({rating:"0"});
+    const[service,setService]=useState({rating:"4"});
 
 
     const [userInfo,setuserInfo]=useState({
@@ -39,7 +39,7 @@ const AddService = () => {
     const submit = async ()=>{
         const formdata = new FormData()
         formdata.append('avatar',userInfo.file);
-        axios.post("http://localhost:5000/imageupload",formdata,{
+        axios.post("https://aliens-photography-server.vercel.app/imageupload",formdata,{
             headers:{"content-type":"multipart/form-data"}
         })
         .then(res=>{
@@ -67,7 +67,7 @@ const AddService = () => {
         newService["timedate"]=current.toLocaleString();
         setService(newService);
 
-        fetch("http://localhost:5000/services",{
+        fetch("https://aliens-photography-server.vercel.app/services",{
             method:'POST',
             headers:{
                 'content-type':"application/json"

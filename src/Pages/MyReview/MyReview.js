@@ -18,7 +18,7 @@ const MyReview = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/user/review?email=${user.email}`, {
+    fetch(`https://aliens-photography-server.vercel.app/services/user/review?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -47,7 +47,7 @@ const MyReview = () => {
     const agree = window.confirm("Are you Want To delete ?");
     console.log(review._id);
     if (agree) {
-      fetch(`http://localhost:5000/reviews/${review._id}`, {
+      fetch(`https://aliens-photography-server.vercel.app/reviews/${review._id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

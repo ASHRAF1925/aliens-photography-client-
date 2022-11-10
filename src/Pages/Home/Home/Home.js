@@ -22,7 +22,7 @@ const Home = () => {
   const navigate=useNavigate();
   useTitle("Home");
   useEffect(()=>{
-    fetch("http://localhost:5000/home/services")
+    fetch("https://aliens-photography-server.vercel.app/home/services")
     .then((res) => res.json())
     .then((data) => {setService(data)
 

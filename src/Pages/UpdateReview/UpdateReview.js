@@ -21,7 +21,7 @@ const UpdateReview = () => {
 
 
   // useEffect(()=>{
-  //   fetch(`http://localhost:5000/services/${params.id}`
+  //   fetch(`https://aliens-photography-server.vercel.app/services/${params.id}`
   // },[])
 
 
@@ -68,7 +68,7 @@ const UpdateReview = () => {
         
         console.log(newComment);
     
-          fetch(`http://localhost:5000/myreviews/update/${Singleservice._id}`,{
+          fetch(`https://aliens-photography-server.vercel.app/myreviews/update/${Singleservice._id}`,{
             method:'PUT',
             headers:{
                 'content-type':"application/json"
