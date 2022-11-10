@@ -9,6 +9,7 @@ let hover=0;
 
 const MyReview = () => {
   const { user, logout } = useContext(AuthContext);
+  const [reviwavialable, setReviewavailable] = useState(false);
 
   const [reviews, setReviews] = useState([]);
 
@@ -16,9 +17,16 @@ const MyReview = () => {
   useEffect(() => {
     fetch(`http://localhost:5000/services/user/review?email=${user.email}`)
       .then((res) => res.json())
-      .then((data) => setReviews(data));
+      .then((data) => {setReviews(data)
+        if (data.length === 0) {
+          console.log("nothing found");
+        } else {
+          setReviewavailable(true);
+        }
+      
+      });
   }, [user?.email]);
-  console.log(reviews[0]);
+
 
   const handleDelete = (review) => {
     const agree = window.confirm("Are you Want To delete ?");
@@ -43,11 +51,12 @@ const MyReview = () => {
   return (
     <div>
       <div className="bg-blue-600 pt-20 pb-10">
-        <p className="text-4xl  mr-4 font-bold"></p>
+        <p className="text-4xl  mr-4 font-bold text-white">These Are The Reviews</p>
         <hr className="my-4 w-2/4 h-1 mx-auto bg-gray-100 rounded border-0 md:my-10 dark:bg-gray-700" />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+      {reviwavialable ? (
+        // {/* if review found start */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
         {reviews.map(
           (review) =>{
 
@@ -114,6 +123,16 @@ const MyReview = () => {
           //    <ReviewItem key={review._id} review={review}></ReviewItem>
         )}
       </div>
+  
+      ) : (
+        // {/* if review found end */}
+        <div className="bg-red-600 text-center text-5xl font-bold text-white p-10">
+          <h1>No Review Avialable Add Some Review</h1>
+        </div>
+      )}
+
+
+      
     </div>
   );
 };

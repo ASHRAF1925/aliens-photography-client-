@@ -36,19 +36,6 @@ const Login = () => {
       }
 
 
-      // //get jwt Token
-      // fetch('http://localhost:5000/jwt',{
-      //   method:"POST",
-      //   headers:{
-      //     'content-type':'application/json'
-      //   },
-      //   body:JSON.stringify(currentUser)
-      // }).then(res=>res,json())
-      // .then(data=>{
-      //   console.log("from here")
-      //   console.log(data)
-      // })
-
 
 
 
@@ -150,7 +137,7 @@ const Login = () => {
 
         <div className="flex items-start mb-6">
        
-          <p>Does not have any account ? <Link to="/register">Register now!</Link> </p>
+          <p>Does not have any account ? <Link to="/register"><span className="bg-blue-200 p-2">Register now!</span></Link> </p>
         </div>
        <div className="text-center">
        <button

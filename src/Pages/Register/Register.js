@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/UserContext";
 import axios from "axios";
@@ -57,28 +57,28 @@ const Register = () => {
     confirm_password = event.target.confirmPassword.value;
     name = event.target.name.value;
     console.log(email, password, confirm_password, name);
-    // photo=event.target.img.value;
+    photo=event.target.img.value;
     //Aasdf1!
 
     if (!/(?=.*[A-Z])/.test(password)) {
       setpassword_error("Please Provide at least one UpperCase letter");
-      toast.error({ password_error });
-      navigate("/register");
+      // toast.error({ password_error });
+      // // navigate("/register");
     }
     if (password.length < 6) {
       setpassword_error("Password length should be more than 6");
-      toast.error({ password_error });
-      navigate("/register");
+      // toast.error({ password_error });
+      // navigate("/register");
     }
     if (!/(?=.*[!@#$*])/.test(password)) {
       setpassword_error("SPEcial charecter missing");
-      toast.error({ password_error });
-      navigate("/register");
+      // toast.error({ password_error });
+      // navigate("/register");
     }
     if (confirm_password !== password) {
       setpassword_error("Password Doesnot match");
-      toast.error({ password_error });
-      navigate("/register");
+      // toast.error({ password_error });
+      // navigate("/register");
     }
     setpassword_error("");
 
@@ -93,7 +93,7 @@ const Register = () => {
         console.log("url", photo);
         handleupdateProfile(name, photo);
         event.target.reset();
-        toast.success("Successfully Registered and Loged in !");
+        // toast.success("Successfully Registered and Loged in !");
         navigate("/");
 
         setSuccess(false);
@@ -104,8 +104,8 @@ const Register = () => {
         console.log("error", error);
         setLogin_error(error.message);
         setpassword_error(errorMessage);
-        toast.error({ login_error });
-        navigate("/register");
+        // toast.error({ login_error });
+        // navigate("/register");
         // ..
       });
   };
@@ -130,11 +130,11 @@ const Register = () => {
   };
 
   return (
-    <div className="mx-auto w-50  rounded p-3 grid place-items-center ">
-      <h1>Please Register</h1>
+    <div className="mx-auto w-full  rounded p-3 grid place-items-center ">
+      <h1 className="text-2xl font-bold m-4">Please Register</h1>
       <form
         onSubmit={handleRegister}
-        className="   p-5 text-left shadow-2xl border border-sky-500"
+        className="   p-5 text-left w-3/4 shadow-2xl border border-sky-500"
       >
         <div className="mb-6 m-auto">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -143,7 +143,7 @@ const Register = () => {
           <input
             type="text"
             id="name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Enter Your Name"
             name="name"
           />
@@ -155,7 +155,7 @@ const Register = () => {
           <input
             type="email"
             id="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Enter Your Email"
             required={true}
             name="email"
@@ -168,7 +168,7 @@ const Register = () => {
           <input
             type="password"
             id="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Password"
             name="password"
             required={true}
@@ -181,13 +181,13 @@ const Register = () => {
           <input
             type="password"
             id="confirmPassword"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-75 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder=" confirm Password"
             name="confirmPassword"
             required={true}
           />
         </div>
-        <div className="formdesign">
+        {/* <div className="formdesign">
           <div className="form-row">
             <label>Select Profile Picture</label>
             <input
@@ -205,7 +205,21 @@ const Register = () => {
               Upload
             </button>
           </div>
-        </div>
+          
+        </div> */}
+        <div className="mb-6 m-auto">
+            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Image URL
+            </label>
+            <input
+              type="text"
+              id="img_url"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter Imageurl"
+              required={true}
+              name="img"
+            />
+          </div>
         <div className="flex items-center mb-4">
           <input
             onClick={handleAccepted}
@@ -223,14 +237,14 @@ const Register = () => {
           {accepted ? (
             <button
               type="submit"
-              className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-75 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Register
             </button>
           ) : (
             <button
               type="button"
-              className=" text-white bg-blue-300 rounded-lg focus:outline-none font-medium rounded-lg text-sm w-75 sm:w-auto px-5 py-2.5"
+              className=" text-white bg-blue-300 rounded-lg focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5"
               disabled
             >
               Register
@@ -238,6 +252,11 @@ const Register = () => {
           )}
         </div>
       </form>
+      
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
     </div>
   );
 };
