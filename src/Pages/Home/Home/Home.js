@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
-import { Card, Button } from "flowbite-react";
+import { Card, Button, Spinner } from "flowbite-react";
 
 
 import 'react-photo-view/dist/react-photo-view.css';
@@ -10,16 +10,37 @@ import Banner from "../Banner/Banner";
 import './Home.css'
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
 import SomeWorks from "../SomeWorks/SomeWorks";
+import useTitle from "../../../hooks/useTitle";
 
 
 const Home = () => {
-  const services = useLoaderData();
+  const[services,setService]=useState([]);
+
+  const [loading,setLoading]=useState(true);
+
+
   const navigate=useNavigate();
+  useTitle("Home");
+  useEffect(()=>{
+    fetch("http://localhost:5000/home/services")
+    .then((res) => res.json())
+    .then((data) => {setService(data)
+
+      setLoading(false);
+      if (data.length === 0) {
+        console.log("nothing found");
+      } else {
+ 
+      }
+    
+    });
+  },[])
   
   console.log(services);
 
   return (
-    <div className="container mx-auto Home">
+    <div>
+      {loading?<Spinner></Spinner>:<div className="container mx-auto Home">
    <Banner ></Banner>
      
    
@@ -37,6 +58,7 @@ const Home = () => {
       </div>
       <PersonalInfo></PersonalInfo>
       <SomeWorks></SomeWorks>
+    </div>}
     </div>
    
   );

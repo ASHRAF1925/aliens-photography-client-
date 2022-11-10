@@ -8,6 +8,7 @@ import MyReview from "../../Pages/MyReview/MyReview";
 import Register from "../../Pages/Register/Register";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import Services from "../../Pages/Services/Services";
+import UpdateReview from "../../Pages/UpdateReview/UpdateReview";
 import PrivateRoute from "../PrivareRoute/PrivateRoute";
 
 
@@ -20,12 +21,12 @@ export const routes =createBrowserRouter([
         children:[
             {
                 path:"/",
-                loader:()=>fetch("http://localhost:5000/home/services"),
+           
                 element:<Home></Home>
             },
             {
                 path:'/services',
-                loader:()=>fetch("http://localhost:5000/services"),
+              
                 element:<Services></Services>
             },
             {
@@ -53,6 +54,11 @@ export const routes =createBrowserRouter([
                 path:'/myreviews/:id',
                 element:<PrivateRoute><MyReview></MyReview></PrivateRoute>,
              
+            },
+            {
+                path:'/myreviews/update/:id',
+                element:<UpdateReview></UpdateReview>,
+                loader:({params})=>fetch(`http://localhost:5000/myreviews/update/${params.id}`)
             }
         ]
     }

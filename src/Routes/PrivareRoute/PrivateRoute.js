@@ -6,8 +6,9 @@ import { AuthContext } from '../../Contexts/UserContext';
 
 
 const PrivateRoute = ({children}) => {
+  let location=useLocation();
     const {user,loading} =useContext(AuthContext);
-    let location=useLocation();
+    
     if(loading){
         return  <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>

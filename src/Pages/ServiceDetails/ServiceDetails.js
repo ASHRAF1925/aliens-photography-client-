@@ -24,6 +24,11 @@ const ServiceDetails = () => {
   const [reviwavialable, setReviewavailable] = useState(false);
 
 
+  // useEffect(()=>{
+  //   fetch(`http://localhost:5000/services/${params.id}`
+  // },[])
+
+
 
   let location = useLocation();
 

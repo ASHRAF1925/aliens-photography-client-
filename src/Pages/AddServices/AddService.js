@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
+import useTitle from '../../hooks/useTitle';
 
 
 
@@ -17,6 +18,8 @@ let photo;
 
 const AddService = () => {
     const [accepted, setAccepted] = useState(false);
+
+    useTitle("ADD Services")
 
     const[service,setService]=useState({rating:"0"});
 

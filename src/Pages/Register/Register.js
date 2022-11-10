@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/UserContext";
 import axios from "axios";
 import { async } from "@firebase/util";
+import useTitle from "../../hooks/useTitle";
 
 let email;
 let password;
@@ -32,6 +33,8 @@ const Register = () => {
       file: event.target.files[0],
     });
   };
+
+  useTitle("Register")
   // const uploadImage=async()=>{
   //   const formdata=new FormData();
   //   formdata.append('avatar',userInfo.file);

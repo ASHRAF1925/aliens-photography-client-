@@ -17,12 +17,13 @@ const UserContext = ({children}) => {
     const gitProvider = new GithubAuthProvider();
   
    const createUseremail=(email,password)=>{
+    setLoading(true);
     return createUserWithEmailAndPassword(auth,email,password);
 
     }
 
     const signIn=(email,password)=>{
-        // setLoading(true);
+        setLoading(true);
         return signInWithEmailAndPassword(auth,email,password);
     }
     useEffect(()=>{
@@ -36,6 +37,8 @@ const UserContext = ({children}) => {
 
     },[])
     const logout=()=>{
+        setLoading(true)
+        localStorage.removeItem('token');
         return signOut(auth);
     }
     const signingoogle=()=>{
