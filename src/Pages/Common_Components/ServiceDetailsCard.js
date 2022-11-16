@@ -10,6 +10,9 @@ import './ServiceDetailsCard.css'
 
 
 const ServiceDetailsCard = ({service}) => {
+
+  const time=new Date(service.timedate);
+  console.log(service.timedate);
     const navigate=useNavigate();
     return (
         <div>

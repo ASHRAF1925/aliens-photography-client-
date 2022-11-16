@@ -1,25 +1,47 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
+import useWindowDimensions from "../../../hooks/useWindow";
 import ReviewCard from "../Review_cards/ReviewCard";
 
-export default class ReviewItems extends Component {
-  render() {
+
+const ReviewItem = ({reviews}) => {
+    
+
+    const windowsize=useWindowDimensions();
+
+
+    let slidenumber=3;
+
+    var w = windowsize.width;
+    if(w<480)
+    {
+      slidenumber=1;
+    }
+    else if(w>480 && w<900)
+    {
+      slidenumber=2;
+    }
+    else if(w>900)
+    {
+      slidenumber=3
+    }
+    
+
+
+
+    console.log(w,slidenumber)
     const settings = {
       dots: true,
       infinite: true,
-      slidesToShow: 3,
+      slidesToShow: slidenumber,
       slidesToScroll: 1,
       autoplay: true,
       speed: 2000,
       autoplaySpeed: 2000,
       cssEase: "linear"
     };
-    
-    const {reviews}=this.props.reviews;
-    console.log(reviews)
-
     return (
-      <div>
+        <div>
      
         <Slider {...settings}>
          {
@@ -28,5 +50,6 @@ export default class ReviewItems extends Component {
         </Slider>
       </div>
     );
-  }
-}
+};
+
+export default ReviewItem;

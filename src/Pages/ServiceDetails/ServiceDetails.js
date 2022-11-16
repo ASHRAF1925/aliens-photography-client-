@@ -1,4 +1,4 @@
-import userEvent from "@testing-library/user-event";
+
 import React, { useContext, useEffect, useState } from "react";
 import {
   Navigate,
@@ -11,8 +11,9 @@ import { AuthContext } from "../../Contexts/UserContext";
 import "./ServiceDetails.css";
 import { Button } from "flowbite-react";
 import { Toaster,toast } from "react-hot-toast";
-import ReviewCard from "../Common_Components/Review_cards/ReviewCard";
-import ReviewItems from "../Common_Components/ReviewsItem/ReviewsItem";
+import ReviewItem from "../Common_Components/ReviewComponents/ReviewItem";
+
+
 
 
 const ServiceDetails = () => {
@@ -37,6 +38,7 @@ const ServiceDetails = () => {
   const [comment, setComment] = useState();
   const [userreview, setUserreview] = useState();
   const [update,setupdate]=useState(false);
+  
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -214,7 +216,7 @@ const ServiceDetails = () => {
       </div>
       {reviwavialable ? (
         // {/* if review found start */}
-        <div className="my-20 mx-auto w-3/4"><ReviewItems reviews={{reviews}}></ReviewItems> </div>
+        <div className="my-20 mx-auto w-3/4"><ReviewItem reviews={reviews}></ReviewItem> </div>
   
       ) : (
         // {/* if review found end */}

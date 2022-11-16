@@ -8,7 +8,7 @@ const ReviewCard = ({ review }) => {
     const date=new Date(review.timeandDate);
     const time=new Date(review.timeandDate);
     
-  console.log(date.toTimeString());
+  
   return (
     <div>
       <div className="max-w-sm my-5 mx-4">
@@ -38,7 +38,7 @@ const ReviewCard = ({ review }) => {
                 })}
               </div>
 
-              <p>Commented on : {date.toLocaleDateString()}{time.toTimeString()} </p>
+              <p>Commented on : {review.timeandDate} </p>
               
         </Card>
       </div>
